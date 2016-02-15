@@ -2,7 +2,11 @@
 
 namespace App\Mark;
 
-interface MarkableInterface {
+interface MarkableInterface
+{
 
+    public function getId();
+
+    public function getType();
 
 }

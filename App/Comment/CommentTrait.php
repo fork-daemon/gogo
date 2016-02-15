@@ -2,7 +2,8 @@
 
 namespace App\Comment;
 
-trait CommentTrait {
+trait CommentTrait
+{
 
 
 }

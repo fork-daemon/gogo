@@ -2,20 +2,33 @@
 
 namespace App\Friend;
 
-interface FriendInterface {
+use App\User\UserInterface;
+
+interface FriendInterface
+{
 
     public function getUser();
+
     public function getItem();
 
-    public function setUser(MemberInterface $member);
-    public function setItem(Commentable $item);
+    public function setUser(UserInterface $user);
+
+    public function setItem(UserInterface $user);
+
+    // record
 
     public function save();
+
     public function destroy();
 
-    public static function add( MemberInterface $member, Commentable $item);
-    public static function remove( MemberInterface $member, Commentable $item);
-    public static function findByMember( MemberInterface $member);
-    public static function findByItem( Commentable $item);
+    // static
+
+    public static function add(UserInterface $user, FriendableInterface $item);
+
+    public static function remove(UserInterface $user, FriendableInterface $item);
+
+    public static function findByMember(UserInterface $user);
+
+    public static function findByItem(FriendableInterface $item);
 
 }

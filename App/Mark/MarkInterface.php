@@ -2,24 +2,37 @@
 
 namespace App\Mark;
 
-interface MarkInterface {
+use \App\User\UserInterface;
 
-    public function getMember();
+interface MarkInterface
+{
+
+    public function getUser();
+
     public function getItem();
+
     public function getMark();
 
-    public function setMember(\App\User\UserInterface $member);
+    public function setUser(UserInterface $user);
+
     public function setItem(MarkableInterface $item);
+
     public function setMark($mark);
 
-
+    // record
 
     public function save();
+
     public function destroy();
 
-    public static function add( \App\User\UserInterface $member, MarkableInterface $item);
-    public static function remove( \App\User\UserInterface $member, MarkableInterface $item);
-    public static function findByMember(  \App\User\UserInterface $member);
-    public static function findByItem( MarkableInterface $item);
+    // static
+
+    public static function add(UserInterface $user, MarkableInterface $item, $mark);
+
+    public static function remove(UserInterface $user, MarkableInterface $item);
+
+    public static function findByMember(UserInterface $user);
+
+    public static function findByItem(MarkableInterface $item);
 }
 

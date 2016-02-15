@@ -2,8 +2,9 @@
 
 namespace App\Like;
 
-
-interface LikableInterface {
+interface LikableInterface
+{
     public function getId();
+
     public function getType();
 }

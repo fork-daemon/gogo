@@ -2,11 +2,11 @@
 
 namespace App\User;
 
-class User implements UserInterface {
-
+class User implements UserInterface
+{
     public function getId()
     {
-        return 'item-quantore';
+        return 'item-123';
     }
 
     public function getName()

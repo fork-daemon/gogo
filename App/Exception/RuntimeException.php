@@ -2,8 +2,8 @@
 
 namespace App\Exception;
 
+class RuntimeException extends \Exception implements ExceptionInterface
+{
 
-class RuntimeException implements ExceptionInterface {
-    
 }
 

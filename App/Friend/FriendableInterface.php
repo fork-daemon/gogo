@@ -3,6 +3,7 @@
 namespace App\Friend;
 
 
-interface FriendableInterface {
+interface FriendableInterface
+{
     public function getId();
 }

@@ -2,7 +2,8 @@
 
 namespace App\Comment;
 
-class Comment implements CommentInterface {
+class Comment implements CommentInterface
+{
 
 }
 

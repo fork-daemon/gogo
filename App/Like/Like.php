@@ -2,6 +2,7 @@
 
 namespace App\Like;
 
-class Like implements LikeInterface {
+class Like implements LikeInterface
+{
 
 }

@@ -2,7 +2,8 @@
 
 namespace App\Friend;
 
-class Friend implements FriendInterface {
+class Friend implements FriendInterface
+{
 
 }
 

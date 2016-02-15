@@ -2,8 +2,8 @@
 
 namespace App\Exception;
 
+class InvalidArgumentException extends \Exception implements ExceptionInterface
+{
 
-class InvalidArgumentException implements ExceptionInterface {
-    
 }
 

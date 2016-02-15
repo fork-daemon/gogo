@@ -3,7 +3,9 @@
 namespace App\Comment;
 
 
-interface CommentableInterface {
+interface CommentableInterface
+{
     public function getId();
+
     public function getType();
 }

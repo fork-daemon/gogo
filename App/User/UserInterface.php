@@ -2,7 +2,9 @@
 
 namespace App\User;
 
-interface UserInterface {
+interface UserInterface
+{
     public function getId();
+
     public function getName();
 }

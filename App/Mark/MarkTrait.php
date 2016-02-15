@@ -2,6 +2,7 @@
 
 namespace App\Mark;
 
-trait MarkTrait {
+trait MarkTrait
+{
 
 }

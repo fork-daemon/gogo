@@ -2,20 +2,33 @@
 
 namespace App\Like;
 
-interface LikeInterface {
+use App\User\UserInterface;
+
+interface LikeInterface
+{
 
     public function getMember();
+
     public function getItem();
 
-    public function setMember(MemberInterface $member);
-    public function setItem(Likable $item);
+    public function setMember(UserInterface $user);
+
+    public function setItem(LikableInterface $item);
+
+    // record
 
     public function save();
+
     public function destroy();
 
-    public static function add( MemberInterface $member, Likable $item);
-    public static function remove( MemberInterface $member, Likable $item);
-    public static function findByMember( MemberInterface $member);
-    public static function findByItem( Likable $item);
+    // static
+
+    public static function add(UserInterface $user, LikableInterface $item);
+
+    public static function remove(UserInterface $user, LikableInterface $item);
+
+    public static function findByMember(UserInterface $user);
+
+    public static function findByItem(LikableInterface $item);
 
 }

@@ -2,6 +2,9 @@
 
 namespace App\Mark;
 
-class MarkException extends \App\Exception\RuntimeException {
-    
+use App\Exception\RuntimeException;
+
+class MarkException extends RuntimeException
+{
+
 }

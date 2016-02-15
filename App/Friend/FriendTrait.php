@@ -2,7 +2,7 @@
 
 namespace App\Friend;
 
-trait FriendTrait {
-
+trait FriendTrait
+{
 
 }

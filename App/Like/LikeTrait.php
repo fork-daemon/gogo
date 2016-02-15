@@ -2,6 +2,7 @@
 
 namespace App\Like;
 
-trait LikeTrait {
+trait LikeTrait
+{
 
 }

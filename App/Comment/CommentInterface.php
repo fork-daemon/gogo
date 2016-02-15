@@ -2,22 +2,40 @@
 
 namespace App\Comment;
 
-interface CommentInterface {
+use App\User\UserInterface;
+
+interface CommentInterface
+{
 
     public function getMember();
+
     public function getItem();
+
     public function getText();
 
-    public function setMember(MemberInterface $member);
-    public function setItem(Commentable $item);
+    public function getTimestamp();
+
+
+    public function setMember(UserInterface $user);
+
+    public function setItem(UserInterface $item);
+
     public function setText($text);
 
+    public function setTimestamp($timestamp = null);
+
+    // record
+
     public function save();
+
     public function destroy();
 
-    public static function add( MemberInterface $member, Commentable $item);
-    public static function remove( MemberInterface $member, Commentable $item);
-    public static function findByMember( MemberInterface $member);
-    public static function findByItem( Commentable $item);
+    // static
+
+    public static function add(UserInterface $user, CommentableInterface $item, $text, $timestamp);
+
+    public static function findByMember(UserInterface $user);
+
+    public static function findByItem(CommentableInterface $item);
 
 }

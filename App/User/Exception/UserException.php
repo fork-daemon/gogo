@@ -2,7 +2,9 @@
 
 namespace App\User;
 
-class UserException extends \App\Exception\RuntimeException
+use App\Exception\RuntimeException;
+
+class UserException extends RuntimeException
 {
 
 }
