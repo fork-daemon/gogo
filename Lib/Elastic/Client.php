@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Elastic;
+namespace Lib\Elastic;
 
-use App\Elastic\Exception\ElasticException;
+use Lib\Elastic\Exception\ElasticException;
 use Elasticsearch\ClientBuilder;
 
 /**
@@ -12,7 +12,7 @@ use Elasticsearch\ClientBuilder;
  */
 class Client
 {
-    use \App\Traits\SetOptionsTrait;
+    use \Lib\SetOptionsTrait;
 
     /**
      * @var \Elasticsearch\Client
@@ -23,7 +23,7 @@ class Client
     const P_HOSTS = 'hosts';
 
     const P_RETRIES_DEFAULT = 0;
-    const P_HOSTS_DEFAULT = ['xxx.xxx:9200'];
+    const P_HOSTS_DEFAULT = '127.0.0.1:9200';
 
     /**
      * clien configuration
@@ -33,7 +33,7 @@ class Client
     protected $config
         = [
             self::P_RETRIES => self::P_RETRIES_DEFAULT,
-            self::P_HOSTS   => self::P_HOSTS_DEFAULT,
+            self::P_HOSTS   => [self::P_HOSTS_DEFAULT],
         ];
 
     // BASE ********************************************************************
@@ -65,7 +65,7 @@ class Client
      */
     public function setRetries($retries)
     {
-        $this->config[self::P_RETRIES] = (int) $retries;
+        $this->config[self::P_RETRIES] = (int)$retries;
 
         return $this;
     }
@@ -85,7 +85,7 @@ class Client
      */
     public function setHosts($hosts)
     {
-        $this->config[self::P_HOSTS] = (array) $hosts;
+        $this->config[self::P_HOSTS] = (array)$hosts;
 
         return $this;
     }
@@ -109,7 +109,7 @@ class Client
      * @param \Elasticsearch\Client $elasticClient
      *
      * @return $this
-     * @throws ElasticException
+     * @throws Exception\ElasticException
      */
     public function setElasticClient(\Elasticsearch\Client $elasticClient)
     {

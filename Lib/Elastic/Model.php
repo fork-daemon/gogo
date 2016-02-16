@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Elastic;
+namespace Lib\Elastic;
 
-use App\Elastic\Exception\ModelException;
-use App\Libs\ArrayHelper;
-use App\Traits\SetOptionsTrait;
+use Lib\Elastic\Exception\ModelException;
+use Lib\ArrayHelper;
+use Lib\SetOptionsTrait;
 
 class Model
 {
@@ -92,7 +92,7 @@ class Model
     {
         if (static::$client === null) {
             /** @var Client $elastic */
-            static::$client = \App\Services::get('elastic');
+            static::$client = \App\Service::get('elastic');
         }
 
         return static::$client;

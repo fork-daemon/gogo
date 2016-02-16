@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Elastic;
+namespace Lib\Elastic;
 
-use App\Libs\ArrayHelper;
+use Lib\ArrayHelper;
 
 /**
  * Class Client

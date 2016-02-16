@@ -19,6 +19,14 @@ class Config
         static::$config = array_merge([], static::$config, (array) $array);
     }
 
+    /**
+     *
+     */
+    public static function clear()
+    {
+        static::$config = [];
+    }
+
     //endregion *******************************************
 
     //region MAIN *******************************************

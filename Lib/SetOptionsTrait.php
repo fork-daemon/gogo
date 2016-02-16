@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Lib;
+namespace Lib;
 
-use App\Exception\ImplementException;
+use Lib\Exception\RuntimeException;
 
 trait SetOptionsTrait
 {
@@ -11,12 +11,12 @@ trait SetOptionsTrait
      * @param array $options
      *
      * @return $this
-     * @throws TraitsException
+     * @throws RuntimeException
      */
     protected function setOptions($options = [])
     {
         if (!is_array($options)) {
-            throw new TraitsException('Options is not an array!');
+            throw new RuntimeException('Options is not an array!');
         }
 
         if (count($options) === 0) {

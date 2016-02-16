@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Exception\ImplementException;
-
 class Service
 {
 
@@ -27,6 +25,14 @@ class Service
         self::$builderSet = array_merge([], self::$builderSet, (array) $array);
     }
 
+    /**
+     *
+     */
+    public static function clear()
+    {
+        static::$instanceSet = [];
+        static::$builderSet = [];
+    }
 
     //endregion *******************************************
 
@@ -36,7 +42,7 @@ class Service
      * @param $key
      *
      * @return mixed
-     * @throws \App\Exception\RuntimeException
+     * @throws \Lib\Exception\RuntimeException
      */
     public static function get($key)
     {
@@ -46,7 +52,6 @@ class Service
         }
 
         return self::$instanceSet[$key];
-
     }
 
     /**
@@ -65,17 +70,17 @@ class Service
      * @param $key
      *
      * @return mixed
-     * @throws \App\Exception\RuntimeException
+     * @throws \Lib\Exception\RuntimeException
      */
     public static function build($key)
     {
 
         if (!array_key_exists($key, self::$builderSet)) {
-            throw new \App\Exception\RuntimeException(__CLASS__ . " builder is undefined for '{$key}'");
+            throw new \Lib\Exception\RuntimeException(__CLASS__ . " builder is undefined for '{$key}'");
         }
 
         if (!is_callable(self::$builderSet[$key])) {
-            throw new \App\Exception\RuntimeException(__CLASS__ . " builder is not callable for '{$key}'");
+            throw new \Lib\Exception\RuntimeException(__CLASS__ . " builder is not callable for '{$key}'");
         }
 
         $function = self::$builderSet[$key];

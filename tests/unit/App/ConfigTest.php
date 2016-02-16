@@ -7,14 +7,15 @@ class ConfigTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
-        \App\Config::load([
-            ROOT . '/config/production.php'
+        \App\Config::extend([
+            'aaa' => 'aaa',
+            'bbb' => 'bbb',
         ]);
     }
 
     protected function _after()
     {
-        \App\Config::clean();
+        \App\Config::clear();
     }
 
     public function testConfigExistsGetterSetter()

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Elastic\Exception;
+namespace Lib\Elastic\Exception;
 
-use \App\Exception\RuntimeException;
+use \Lib\Exception\RuntimeException;
 
 /**
  * Class ElasticException

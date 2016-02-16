@@ -18,4 +18,13 @@ class Locale
     {
         static::$locale = array_merge([], static::$locale, (array) $array);
     }
+
+    /**
+     *
+     */
+    public static function clear()
+    {
+        static::$locale = [];
+    }
+
 }

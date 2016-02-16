@@ -1,5 +1,6 @@
 <?php
-namespace App\Elastic;
+
+namespace Lib\Elastic;
 
 use Codeception\Util\Stub;
 
@@ -16,25 +17,25 @@ class ClientTest extends \Codeception\TestCase\Test
 
     public function testClientCorrectInstance()
     {
-        $client = new \App\Elastic\Client();
+        $client = new \Lib\Elastic\Client();
 
-        $this->assertInstanceOf('\App\Elastic\Client', $client);
+        $this->assertInstanceOf('\Lib\Elastic\Client', $client);
     }
 
     public function testClientDefaultOptions()
     {
-        $client = new \App\Elastic\Client();
+        $client = new \Lib\Elastic\Client();
 
-        $this->assertEquals(\App\Elastic\Client::P_RETRIES_DEFAULT, $client->getRetries());
-        $this->assertEquals(\App\Elastic\Client::P_HOSTS_DEFAULT, $client->getHosts());
+        $this->assertEquals(\Lib\Elastic\Client::P_RETRIES_DEFAULT, $client->getRetries());
+        $this->assertEquals([\Lib\Elastic\Client::P_HOSTS_DEFAULT], $client->getHosts());
     }
 
     public function testClientSetOptions()
     {
-        $client = new \App\Elastic\Client(
+        $client = new \Lib\Elastic\Client(
             [
-                \App\Elastic\Client::P_HOSTS   => ['xxx', 'yyy', 'zzz'],
-                \App\Elastic\Client::P_RETRIES => 999,
+                \Lib\Elastic\Client::P_HOSTS   => ['xxx', 'yyy', 'zzz'],
+                \Lib\Elastic\Client::P_RETRIES => 999,
             ]
         );
 
@@ -49,7 +50,7 @@ class ClientTest extends \Codeception\TestCase\Test
 
     public function testClientAllProxyMethodsExists()
     {
-        $client = new \App\Elastic\Client();
+        $client = new \Lib\Elastic\Client();
 
         $checkMethods = [
             'index',
@@ -86,7 +87,7 @@ class ClientTest extends \Codeception\TestCase\Test
             ]
         );
 
-        $client = new \App\Elastic\Client();
+        $client = new \Lib\Elastic\Client();
         $client->setElasticClient($elasticSearchClient);
 
         $this->assertEquals('call-index', $client->index('call-index'));

@@ -1,25 +1,25 @@
 <?php
-namespace App\Elastic;
+namespace Lib\Elastic;
 
 // Simple models >>> =============================================
 
 use Codeception\Util\Stub;
 
-class ElasticMockModel extends \App\Elastic\Model
+class ElasticMockModel extends \Lib\Elastic\Model
 {
     protected $index = 'test_index';
     protected $type = 'test_type';
     protected $timestamps = false;
 }
 
-class ElasticMockModelTimestamps extends \App\Elastic\Model
+class ElasticMockModelTimestamps extends \Lib\Elastic\Model
 {
     protected $index = 'test_index';
     protected $type = 'test_type';
     protected $timestamps = true;
 }
 
-class ElasticMockModelSchema extends \App\Elastic\Model
+class ElasticMockModelSchema extends \Lib\Elastic\Model
 {
     protected $index = 'test_index';
     protected $type = 'test_type';
@@ -40,7 +40,7 @@ class ModelTest extends \Codeception\TestCase\Test
     {
         $obj = new ElasticMockModel();
 
-        $this->assertInstanceOf('\App\Elastic\Model', $obj);
+        $this->assertInstanceOf('\Lib\Elastic\Model', $obj);
         $this->assertNotNull($obj->getIndex());
         $this->assertNotNull($obj->getType());
         $this->assertNull($obj->getId());
@@ -111,7 +111,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
     public function testElasticModelCurrentInstance()
     {
-        $this->assertInstanceOf('\App\Elastic\Model', ElasticMockModel::getCurrentModel());
+        $this->assertInstanceOf('\Lib\Elastic\Model', ElasticMockModel::getCurrentModel());
         $this->assertEquals('test_index', ElasticMockModel::getModelIndex());
         $this->assertEquals('test_type', ElasticMockModel::getModelType());
         $this->assertEquals(null, ElasticMockModel::getModelSchema());
@@ -201,7 +201,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
     public function testModelExpectedExceptionCreateTimestamp()
     {
-        $this->setExpectedException('\App\Elastic\Exception\ModelException');
+        $this->setExpectedException('\Lib\Elastic\Exception\ModelException');
 
         // because our model without timestamps
         $obj = new ElasticMockModel();
@@ -211,7 +211,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
     public function testModelExpectedExceptionUpdateTimestamp()
     {
-        $this->setExpectedException('\App\Elastic\Exception\ModelException');
+        $this->setExpectedException('\Lib\Elastic\Exception\ModelException');
 
         // because our model without timestamps
         $obj = new ElasticMockModel();
@@ -231,7 +231,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
     public function testModelExpectedExceptionSchema()
     {
-        $this->setExpectedException('\App\Elastic\Exception\ModelException');
+        $this->setExpectedException('\Lib\Elastic\Exception\ModelException');
 
         // key does not exist in schema
         $obj = new ElasticMockModelSchema();
@@ -299,7 +299,7 @@ class ModelTest extends \Codeception\TestCase\Test
             ]
         );
 
-        $client = new \App\Elastic\Client();
+        $client = new \Lib\Elastic\Client();
         $client->setElasticClient($elasticSearchClient);
 
         $model::setClient($client);
@@ -310,15 +310,15 @@ class ModelTest extends \Codeception\TestCase\Test
     {
         // mock ===========================
         $data = ['key-1' => 'value-1', 'key-2' => 'value-2',];
-        $this->prepareStubElasticClient('\App\Elastic\ElasticMockModel', $data);
+        $this->prepareStubElasticClient('\Lib\Elastic\ElasticMockModel', $data);
 
         // test ===========================
 
         $one = ElasticMockModel::searchOne(123);
         $two = ElasticMockModel::searchOne('123-xxx');
 
-        $this->assertInstanceOf('\App\Elastic\ElasticMockModel', $one);
-        $this->assertInstanceOf('\App\Elastic\ElasticMockModel', $two);
+        $this->assertInstanceOf('\Lib\Elastic\ElasticMockModel', $one);
+        $this->assertInstanceOf('\Lib\Elastic\ElasticMockModel', $two);
 
         $this->assertEquals(123, $one->getId());
         $this->assertEquals('123-xxx', $two->getId());
@@ -334,13 +334,13 @@ class ModelTest extends \Codeception\TestCase\Test
 
         // mock ===========================
         $data = ['key-1' => 'value-1', 'key-2' => 'value-2',];
-        $this->prepareStubElasticClient('\App\Elastic\ElasticMockModel', $data);
+        $this->prepareStubElasticClient('\Lib\Elastic\ElasticMockModel', $data);
 
         // test ===========================
 
         $one = ElasticMockModel::getById(123);
 
-        $this->assertInstanceOf('\App\Elastic\ElasticMockModel', $one);
+        $this->assertInstanceOf('\Lib\Elastic\ElasticMockModel', $one);
         $this->assertEquals(123, $one->getId());
         $this->assertArraySubset($data, $one->getData());
 
@@ -352,15 +352,15 @@ class ModelTest extends \Codeception\TestCase\Test
 
         // mock ===========================
         $data = ['key-1' => 'value-1', 'key-2' => 'value-2',];
-        $this->prepareStubElasticClient('\App\Elastic\ElasticMockModel', $data);
+        $this->prepareStubElasticClient('\Lib\Elastic\ElasticMockModel', $data);
 
         // test ===========================
 
         $all = ElasticMockModel::search();
         $this->assertInternalType('array', $all);
 
-        $this->assertInstanceOf('\App\Elastic\ElasticMockModel', $all[0]);
-        $this->assertInstanceOf('\App\Elastic\ElasticMockModel', $all[1]);
+        $this->assertInstanceOf('\Lib\Elastic\ElasticMockModel', $all[0]);
+        $this->assertInstanceOf('\Lib\Elastic\ElasticMockModel', $all[1]);
 
         $this->assertArraySubset($data, $all[0]->getData());
         $this->assertArraySubset($data, $all[1]->getData());
@@ -373,7 +373,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
         // mock ===========================
         $data = ['key-1' => 'value-1', 'key-2' => 'value-2',];
-        $this->prepareStubElasticClient('\App\Elastic\ElasticMockModel', $data);
+        $this->prepareStubElasticClient('\Lib\Elastic\ElasticMockModel', $data);
 
         // test ===========================
         $this->assertEquals(999, ElasticMockModel::count());
@@ -385,7 +385,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
         // mock ===========================
         $data = ['key-1' => 'value-1', 'key-2' => 'value-2',];
-        $this->prepareStubElasticClient('\App\Elastic\ElasticMockModel', $data);
+        $this->prepareStubElasticClient('\Lib\Elastic\ElasticMockModel', $data);
 
         // test ===========================
 
@@ -399,7 +399,7 @@ class ModelTest extends \Codeception\TestCase\Test
 
         // mock ===========================
         $data = ['key-1' => 'value-1', 'key-2' => 'value-2',];
-        $this->prepareStubElasticClient('\App\Elastic\ElasticMockModel', $data);
+        $this->prepareStubElasticClient('\Lib\Elastic\ElasticMockModel', $data);
 
         // test ===========================
 

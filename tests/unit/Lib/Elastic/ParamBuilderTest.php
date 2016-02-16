@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Elastic;
+namespace Lib\Elastic;
 
 
 class ParamsBuilderTest extends \Codeception\TestCase\Test
@@ -9,15 +9,15 @@ class ParamsBuilderTest extends \Codeception\TestCase\Test
 
     public function testParamsBuilderInstance()
     {
-        $obj = new \App\Elastic\ParamsBuilder();
+        $obj = new \Lib\Elastic\ParamsBuilder();
 
-        $this->assertInstanceOf('\App\Elastic\ParamsBuilder', $obj);
+        $this->assertInstanceOf('\Lib\Elastic\ParamsBuilder', $obj);
     }
 
 
     public function testParamsBuilderCallAndGet()
     {
-        $obj = new \App\Elastic\ParamsBuilder();
+        $obj = new \Lib\Elastic\ParamsBuilder();
         $obj->AaaBbbC_c('value');
 
         $paramArray = $obj->get();
@@ -45,7 +45,7 @@ class ParamsBuilderTest extends \Codeception\TestCase\Test
             'id'    => 'my_id'
         ];
 
-        $obj = new \App\Elastic\ParamsBuilder();
+        $obj = new \Lib\Elastic\ParamsBuilder();
         $obj->index('my_index')
             ->type('my_type')
             ->body('my_body')
@@ -75,7 +75,7 @@ class ParamsBuilderTest extends \Codeception\TestCase\Test
             ]
         ];
 
-        $obj = new \App\Elastic\ParamsBuilder();
+        $obj = new \Lib\Elastic\ParamsBuilder();
         $obj->index('my_index')
             ->type('my_type')
             ->bodyQueryFilteredFilterTerm('my_field', 'abc')
@@ -100,7 +100,7 @@ class ParamsBuilderTest extends \Codeception\TestCase\Test
             ]
         ];
 
-        $obj = new \App\Elastic\ParamsBuilder();
+        $obj = new \Lib\Elastic\ParamsBuilder();
         $obj->index('my_index')
             ->search_type('scan')
             ->scroll('30s')
@@ -130,7 +130,7 @@ class ParamsBuilderTest extends \Codeception\TestCase\Test
             ]
         ];
 
-        $obj = new \App\Elastic\ParamsBuilder();
+        $obj = new \Lib\Elastic\ParamsBuilder();
         $obj->index('my_index')
             ->type('my_type')
             ->bodyQueryBoolMust(
