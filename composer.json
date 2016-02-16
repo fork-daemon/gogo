@@ -1,0 +1,14 @@
+{
+    "require": {
+        "elasticsearch/elasticsearch": "^2.1"
+    },
+    "require-dev": {
+        "codeception/codeception": "*",
+        "codeception/mockery-module": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}

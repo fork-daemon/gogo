@@ -1,28 +1,22 @@
 <?php
 
 return [
-    'pdo'   => function () {
+    'memcache'           => function () {
+        $config = \App\Config::get('memcache');
 
-        // implement
-
-        return new stdClass;
+        return new \App\Memcache\Client($config['client']);
     },
-    'redis' => function () {
+    'logger'             => function () {
+        $config = \App\Config::get('logger');
 
-        // implement
+        $obj = new \stdClass();
+        $obj->config = $config;
 
-        return new stdClass;
+        return $obj;
     },
-    'elastic' => function () {
+    'elastic'            => function () {
+        $config = \App\Config::get('elastic');
 
-        // implement
-
-        return new stdClass;
-    },
-    'logger' => function () {
-
-        // implement
-
-        return new stdClass;
+        return new \App\Elastic\Client($config['client']);
     },
 ];
