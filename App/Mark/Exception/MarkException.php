@@ -2,7 +2,7 @@
 
 namespace App\Mark;
 
-use App\Exception\RuntimeException;
+use Lib\Exception\RuntimeException;
 
 class MarkException extends RuntimeException
 {

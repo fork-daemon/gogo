@@ -2,7 +2,7 @@
 
 namespace App\Friend;
 
-use App\Exception\RuntimeException;
+use Lib\Exception\RuntimeException;
 
 class FriendException extends RuntimeException
 {

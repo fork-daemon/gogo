@@ -2,7 +2,7 @@
 
 namespace App\Comment;
 
-use App\Exception\RuntimeException;
+use Lib\Exception\RuntimeException;
 
 class CommentException extends RuntimeException
 {

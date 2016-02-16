@@ -2,7 +2,7 @@
 
 namespace App\Like;
 
-use \App\Exception\RuntimeException;
+use Lib\Exception\RuntimeException;
 
 class LikeException extends RuntimeException
 {
