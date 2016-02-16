@@ -20,29 +20,13 @@ class Service
     //region BASE *************************************************
 
     /**
-     * @param $source
-     *
-     * @return bool
-     * @throws Exception\RuntimeException
+     * @param array $array
      */
-    public static function init($source)
+    public static function extend($array = [])
     {
-
-        if (is_array($source)) {
-            self::$builderSet = $source;
-
-            return true;
-        }
-
-        if (file_exists($source)) {
-            self::$builderSet = require_once $source;
-
-            return true;
-        }
-
-
-        throw new \App\Exception\RuntimeException(__CLASS__ . " can't load source");
+        self::$builderSet = array_merge([], self::$builderSet, (array) $array);
     }
+
 
     //endregion *******************************************
 

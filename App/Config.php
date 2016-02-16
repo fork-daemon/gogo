@@ -4,7 +4,7 @@ namespace App;
 
 class Config
 {
-        /**
+    /**
      * @var array
      */
     protected static $config = [];
@@ -12,41 +12,11 @@ class Config
     //region BASE *******************************************
 
     /**
-     * @use :
-     *      Config::load('config-1.php');
-     *      Config::load(['config-1.php', 'config-2.php']);
-     *
-     * @param array|string $files
-     */
-    public static function load($files)
-    {
-        $files = (array) $files;
-
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                $array = require_once($file);
-                static::extend($array);
-            }
-        }
-    }
-
-    /**
-     *
-     */
-    public static function clean()
-    {
-        static::$config = [];
-    }
-
-    /**
-     * @use :
-     *      Config::extend(['mysql' => ['host' => 'localhost']]);
-     *
      * @param array $array
      */
     public static function extend(array $array = [])
     {
-        static::$config = array_merge([], static::$config, $array);
+        static::$config = array_merge([], static::$config, (array) $array);
     }
 
     //endregion *******************************************

@@ -1,13 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-error_reporting(E_ALL & ~E_NOTICE);
-
 require realpath(__DIR__) . '/../bootstrap/bootstrap.php';
 
-
-// **********************
-
-$app = new stdClass();
-$app->run();
+echo "cli ok!" . PHP_EOL;
+echo "cli ok!" . PHP_EOL;
+echo "cli ok!" . PHP_EOL;
 
