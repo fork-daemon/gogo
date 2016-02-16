@@ -1,0 +1,224 @@
+#!/usr/bin/env php
+<?php
+
+require realpath(__DIR__) . '/../bootstrap/bootstrap.php';
+
+use App\Grabber\Page;
+use App\Grabber\Url;
+use App\Grabber\Site;
+
+
+$outputFolder = 'data/grabber-'.date('Y-m').'/';
+
+/**
+ *
+ * http://jakjim.com/demo/smarty/template/
+ *
+ * http://pages.revox.io/frontend/1.0/html/01/index.html
+ */
+$grabbing = [
+
+    // custom demid
+
+
+    ['folder' => $outputFolder, 'type' => 'site', 'url' => 'http://demo.themestreet.net/berliner/',],
+
+
+    // ['folder' => '_custom', 'type' => 'site', 'url' => 'http://themeforest.net/item/milan-fashion-clothes-shop-prestashop-theme/full_screen_preview/13614671',],
+    // ['folder' => '_custom', 'type' => 'page', 'url' => 'http://layerstheme.com/portfolio/html/anypurpose-demo/food-factory/index.html',],
+    // ['folder' => '_custom', 'type' => 'page', 'url' => 'http://www.directautotour.ro/siteuri/restaurant/',],
+
+    // landings pages ===================
+    // sites #3
+    //    ['folder' => '_output5', 'type' => 'site', 'url' => 'http://kamleshyadav.com/html-builder/launching-page/',],
+    //    ['folder' => '_output5', 'type' => 'site', 'url' => 'http://the-lumberjacks.com/items/landing-page/elegant/demos/index.html',],
+    //    ['folder' => '_output5', 'type' => 'site', 'url' => 'http://lgen.matart.ru/',],
+    //    ['folder' => '_output5', 'type' => 'site', 'url' => 'http://conceptbeans.co.uk/dev/html/travpro/main/',],
+    //    ['folder' => '_output5', 'type' => 'site', 'url' => 'http://multifour.com/projects/select/',],
+    //
+    //    ['folder' => '_output6', 'type' => 'site', 'url' => 'http://www.softlightweb.com/projects/librarium/HTML/html/index.html',],
+    //    ['folder' => '_output6', 'type' => 'site', 'url' => 'http://www.bdinfosys.com/demo/appmate/',],
+    //    ['folder' => '_output6', 'type' => 'site', 'url' => 'http://www.shegy.nazwa.pl/themeforest/spot/demo/demo.html',],
+    //    ['folder' => '_output6', 'type' => 'site', 'url' => 'http://worksofwisnu.com/theme-preview/urip/',],
+    //    ['folder' => '_output6', 'type' => 'site', 'url' => 'http://dsathemes.com/html/spento/index.html',],
+    //
+    //    ['folder' => '_output7', 'type' => 'site', 'url' => 'http://www.kleverthemes.co.uk/lexi_html/index.html',],
+    //    ['folder' => '_output7', 'type' => 'site', 'url' => 'http://www.dezinethemes.com/envato/music/landing.html',],
+    //    ['folder' => '_output7', 'type' => 'site', 'url' => 'http://fantonica.com/zollo/',],
+    //    ['folder' => '_output7', 'type' => 'site', 'url' => 'http://188.226.173.21/piotr/landingo/',],
+    //    ['folder' => '_output7', 'type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/babatox/demo.html',],
+    //
+    //    ['folder' => '_output8', 'type' => 'site', 'url' => 'http://csmthemes.com/themes/conference/',],
+    //    ['folder' => '_output8', 'type' => 'site', 'url' => 'http://themes.monoliththemes.com/dustar/',],
+    //    ['folder' => '_output8', 'type' => 'site', 'url' => 'http://www.shegy.nazwa.pl/themeforest/convert/index_single_light.html',],
+    //    ['folder' => '_output8', 'type' => 'site', 'url' => 'http://envato.bestpixels.net/klank-event/index.html',],
+    //    ['folder' => '_output8', 'type' => 'site', 'url' => 'http://demo.themestreet.net/berliner/',],
+    //
+    //    ['folder' => '_output9', 'type' => 'site', 'url' => 'http://envato.bestpixels.net/klank-html/index.html',],
+    //    ['folder' => '_output9', 'type' => 'site', 'url' => 'http://codeweapon.com/demo/woodworks-landing-page/',],
+    //    ['folder' => '_output9', 'type' => 'site', 'url' => 'http://www.dezinethemes.com/envato/ps/landing.html',],
+    //    ['folder' => '_output9', 'type' => 'site', 'url' => 'http://www.15robots.com/doodle/',],
+    //     ['folder' => '_output9', 'type' => 'site', 'url' => 'http://www.gn.knockbd.com/pat/',],
+    //['folder' => '_output9', 'type' => 'page', 'url' => 'http://www.gn.knockbd.com/pat/white/',],
+    //
+    //    ['folder' => '_output10', 'type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/kelex/demo.html',],
+    //    ['folder' => '_output10', 'type' => 'site', 'url' => 'http://pixfort.com/landing/flatpack/preview/index.html',],
+    //    ['folder' => '_output10', 'type' => 'site', 'url' => 'http://paulthekkinen.com/travel/',],
+    //    ['folder' => '_output10', 'type' => 'site', 'url' => 'http://www.shegy.nazwa.pl/themeforest/JamesLP/app/demo/demo.html',],
+
+    // sites #2
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://csmthemes.com/themes/launch/',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://the-lumberjacks.com/items/landing-page/puppet/demos/index.html',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://craftxhtml.com/projects/cloud-soft/',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://demo.themeregion.com/castle/eventcastle-demo/',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://conquerorsmarket.net/works/landing-pages/agent-html/',],
+    //
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://newday.tchaikovsky.design/',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://themes.supview.co/dilla/',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://eventual.loginov.biz/',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://demo.web3canvas.com/themeforest/gather/landing.html',],
+    //    ['folder' => '_output2', 'type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/sugan/demo.html',],
+    //
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://themographics.com/html/cibelli/',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://highhay.com/demos/futurion/demo.html',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://www.dezinethemes.com/envato/proconf/index.html',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://eventcatch.moroz-investor.com/index.html',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://craftxhtml.com/projects/flatvault-html/main/',],
+    //
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://wevostudio.com/themes/uber-event/',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://templatecoffee.com/demo/zeyner/',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://demo.designsvilla.com/factor/demo/',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://takethemes.com/constructive/',],
+    //    ['folder' => '_output3', 'type' => 'site', 'url' => 'http://demo.themecube.net/pixomic/',],
+    //
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://pixfort.com/sites/cristal/',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://www.shindiristudio.com/appsonic/',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://linewp.com/demo/lane/',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://layerstheme.com/portfolio/html/SmartPack/',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/fatih/demo.html',],
+    //
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://zozothemes.com/html/desirable/landing-page/',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://the-lumberjacks.com/items/landing-page/holywood/demos/index.html',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://mannatstudio.com/html/mithiliya-landing/demo-page.html',],
+    //    ['folder' => '_output4', 'type' => 'site', 'url' => 'http://wellnesscenter.themeinjection.com/',],
+
+
+    // sites #1
+    //    ['type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/dangdosan/demo.html'],
+    //    ['type' => 'site', 'url' => 'http://creative-era.com/appe/'],
+    //    ['type' => 'site', 'url' => 'http://murren.ru/templates/bobby/demo/'],
+    //
+    //    ['type' => 'site', 'url' => 'http://dsathemes.com/html/kolo/index.html'],
+    //    ['type' => 'site', 'url' => 'http://paulthekkinen.com/insurance/page-01/'],
+    //    ['type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/cobian/demo.html'],
+    //
+    //    ['type' => 'site', 'url' => 'http://demo.frontpixels.com/xpose/'],
+    //    ['type' => 'site', 'url' => 'http://pixelcoder.net/sparrow/'],
+    //    ['type' => 'site', 'url' => 'http://demo.deviserweb.com/startex/demo/'],
+    //
+    //    ['type' => 'site', 'url' => 'http://ndesaintheme.com/rpm/demo.html'],
+    //    ['type' => 'site', 'url' => 'http://demo.web3canvas.com/themeforest/mediclick/landing.html'],
+    //    ['type' => 'site', 'url' => 'http://landingpages.rgenesis.com/themes/'],
+    //
+    //    ['type' => 'site', 'url' => 'http://beharper.com/projects/hello-html/'],
+    //    ['type' => 'site', 'url' => 'http://demo.musemaster.net/Snapview/'],
+    //    ['type' => 'site', 'url' => 'http://piotr.floppyblog.pl/piecia/'],
+    //
+    //    ['type' => 'site', 'url' => 'http://demo.deviserweb.com/finiti/demo/'],
+    //    ['type' => 'site', 'url' => 'http://themestarz.net/html/lander/'],
+    //    ['type' => 'site', 'url' => 'http://99webpage.com/theme-review/landingpage/sonno/demo.html'],
+    //
+    //    ['type' => 'site', 'url' => 'http://demo.designsvilla.com/helpme-lp/demo/'],
+    //    ['type' => 'site', 'url' => 'http://demo.fifothemes.com/prolan/'],
+    //    ['type' => 'site', 'url' => 'http://wevostudio.com/themes/signature/'],
+    //
+    //    ['type' => 'site', 'url' => 'http://layerstheme.com/portfolio/html/anypurpose-demo/'],
+    //    ['type' => 'site', 'url' => 'http://demo.themeregion.com/castle/apps-castle-demo/'],
+    //    ['type' => 'site', 'url' => 'http://accommodation.themeinjection.com'],
+
+    // pages
+    //    ['type' => 'page', 'url' => 'http://www.shapingrain.com/demo/dofollow/'],
+    //    ['type' => 'page', 'url' => 'http://mixdesigns.net/themes/wava/HTML/ios/'],
+    //    ['type' => 'page', 'url' => 'http://the-lumberjacks.com/items/landing-page/crooked/demos/index.html'],
+    //    ['type' => 'page', 'url' => 'http://www.deepakchandra.in/fitness/Dark/'],
+    //    ['type' => 'page', 'url' => 'http://craftxhtml.com/projects/vibrantgym/'],
+    //    ['type' => 'page', 'url' => 'http://craftxhtml.com/projects/cubeconsulting/'],
+
+
+    //    [
+    //        'url'  => 'http://192.185.228.226/projects/ma/1-5-1/jquery/form-examples.html',
+    //        'type' => 'site',
+    //    ],
+
+
+    //    [ // README All http://themeforest.net/item/smarty-creative-agency-portfolio-template/full_screen_preview/12113490
+    //      'url'  => 'http://jakjim.com/demo/smarty/template/',
+    //      'type' => 'page',
+    //    ],
+    //    [
+    //        'url'  => 'http://pages.revox.io/frontend/1.0/html/01/index.html',
+    //        'type' => 'page',
+    //    ],
+    //    [ // README http://www.dezinethemes.com/envato/ps/index.html
+    //        'url'  => 'http://www.dezinethemes.com/envato/ps/02/02/index.html',
+    //        'type' => 'page',
+    //    ],
+    //    [
+    //        'url'  => 'http://craftxhtml.com/projects/flatvault-html/click-through/',
+    //        'type' => 'page',
+    //    ],
+
+    //    [
+    //        /**
+    //         * IMPORTANT
+    //         * 1) replace jquery : landing_55183/js/jquery.js >>> https://code.jquery.com/jquery-1.11.1.js
+    //         * 2) more downloads file read landing_55183/js/script.js
+    //         */
+    //        'url'  => 'http://livedemo00.template-help.com/landing_55183/',
+    //        'type' => 'page',
+    //    ],
+    //    [
+    //        'url'  => 'http://csmthemes.com/themes/launch/image/',
+    //        'type' => 'page',
+    //    ],
+    //        [
+    //            'url'  => 'http://accommodation.themeinjection.com/',
+    //            'type' => 'page',
+    //        ],
+    //    [
+    //        'url'  => 'http://accommodation.themeinjection.com',
+    //        'type' => 'page',
+    //    ],
+    //    [
+    //        'url'  => 'http://conquerorsmarket.net/works/landing-pages/agent-html/demos/real-agent.html',
+    //        'type' => 'page',
+    //    ],
+    //    [
+    //        'url'  => 'http://iunique.me/hostrocket/template2/index.html',
+    //        'type' => 'page',
+    //    ],
+    //    [
+    //        'url'  => 'http://99webpage.com/theme-review/landingpage/sugan/index.html',
+    //        'type' => 'page',
+    //    ],
+];
+
+shuffle($grabbing);
+
+foreach ($grabbing as $options) {
+    $url = $options['url'];
+    $targetFolder = isset($options['folder']) ? $options['folder'] : '_output/';
+
+    $folder = $targetFolder . '/' . Url::info($url, Url::HOST);
+
+    if ($options['type'] === 'site') {
+        $site = new Site($url, $folder, 3);
+
+    } else {
+        $page = new Page($url, $folder);
+        $page->save();
+    }
+}
+
+
+
