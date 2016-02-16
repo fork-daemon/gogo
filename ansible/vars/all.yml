@@ -1,0 +1,43 @@
+---
+server:
+    install: '1'
+    packages: [htop]
+    timezone: UTC
+    locale: ru_RU.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { base_box: trusty64, hostname: gogo, ip: 192.168.33.99, memory: '2048', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+apache:
+    install: '1'
+    docroot: /vagrant/public
+    servername: gogo.dev
+mysql:
+    install: '1'
+    root_password: '123'
+    database: vesta
+    user: user
+    password: password
+    dump: ''
+mongodb:
+    install: '1'
+redis:
+    install: '1'
+    port: '6379'
+rabbitmq:
+    install: '1'
+    user: user
+    password: password
+elasticsearch:
+    install: '1'
+    port: '9200'
+    version: 1.5.2
+php:
+    install: '1'
+    ppa: php5-5.6
+    packages: [php5-cli, php5-intl, php5-mcrypt, php5-curl, php5-fpm, php5-gd, php5-memcached, php5-xdebug, php5-xmlrpc, php5-mysql, php5-imagick, php5-mongo]
+    peclpackages: [memcache, redis, mysql, mongo]
+xdebug:
+    install: '1'
+composer:
+    install: '1'
+
