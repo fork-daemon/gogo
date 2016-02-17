@@ -3,6 +3,7 @@
 namespace App\Grabber;
 
 use App\Grabber\Exception\GrabberException;
+use App\Service;
 
 class Page
 {
@@ -121,7 +122,7 @@ class Page
         $scope = [];
         foreach ($items as $i => $item) {
 
-            if(isset($scope[$item[Url::LOCAL_PATH]])){
+            if (isset($scope[$item[Url::LOCAL_PATH]])) {
                 continue;
             }
 
@@ -142,12 +143,12 @@ class Page
 
             $this->file->save($item[Url::REMOTE_PATH], $item[Url::LOCAL_PATH]);
 
-
-            Logger::log("upload {$item[Url::REMOTE_PATH]}");
-            Logger::log("     > {$this->file->getLocalPath($item[Url::LOCAL_PATH])}}");
+            $from = $item[Url::REMOTE_PATH];
+            $to = $this->file->getLocalPath($item[Url::LOCAL_PATH]);
+            Service::logger()->addNotice("upload from {$from} to {$to}", ['grabber', __CLASS__]);
 
             if ($item[Url::TYPE] === Url::TYPE_T_STYLE) {
-                Logger::log("start new page {$item[Url::REMOTE_PATH]}");
+                Service::logger()->addNotice("start new page {$item[Url::REMOTE_PATH]}", ['grabber', __CLASS__]);
                 $css = new Page($item[Url::REMOTE_PATH], $this->getOutputFolder());
                 $css->save();
             }

@@ -2,6 +2,7 @@
 
 namespace App\Grabber;
 
+use App\Service;
 
 class Site
 {
@@ -33,7 +34,7 @@ class Site
 
         foreach ($items as $i => $item) {
             if ($item[Url::IS_BELONG] && in_array($item[Url::TYPE], [Url::TYPE_T_PAGE])) {
-                Logger::log("new site {$item[Url::REMOTE_PATH]}");
+                Service::logger()->addNotice("new site {$item[Url::REMOTE_PATH]}", ['grabber', __CLASS__]);
                 $site = new Site($item[Url::REMOTE_PATH], $outputFolder, $deep);
             }
         }

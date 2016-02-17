@@ -40,8 +40,6 @@ class Resource
 
             '/data-url=\'([^\']*)\'/i',// data-url='video/video-2.mp4'
             '/data-url="([^"]*)"/i',   // data-url="video/video-2.mp4"
-
-
         ];
 
     protected $replacePatterns

@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Comment;
+namespace App\News;
 
 use App\User\UserInterface;
 
-interface CommentInterface
+interface NewsInterface
 {
 
     public function getUser();
 
-    public function getItem();
+    public function getTitle();
 
     public function getText();
 
     public function getTimestamp();
 
-
     public function setUser(UserInterface $user);
 
-    public function setItem(CommentableInterface $item);
+    public function setTitle($title);
 
     public function setText($text);
 
@@ -26,18 +25,14 @@ interface CommentInterface
 
     // record
 
-    public function getId();
-
     public function save();
 
     public function destroy();
 
     // static
 
-    public static function add(UserInterface $user, CommentableInterface $item, $text, $timestamp);
+    public static function add(UserInterface $user, $title, $text, $timestamp);
 
     public static function findByMember(UserInterface $user);
-
-    public static function findByItem(CommentableInterface $item);
 
 }

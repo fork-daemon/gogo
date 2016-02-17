@@ -7,4 +7,12 @@ return [
         'path' => ROOT . 'logs/log-'.date('Y-m-d').'.log',
         'name' => 'app',
     ],
+    'rebbitMQ' => [
+        'host' => 'localhost',
+        'port' => 5672,
+        'user' => 'user',
+        'password' => 'password',
+        'vhost' => '/',
+        'debug' => false,
+    ],
 ];

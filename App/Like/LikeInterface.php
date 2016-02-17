@@ -7,11 +7,11 @@ use App\User\UserInterface;
 interface LikeInterface
 {
 
-    public function getMember();
+    public function getUser();
 
     public function getItem();
 
-    public function setMember(UserInterface $user);
+    public function setUser(UserInterface $user);
 
     public function setItem(LikableInterface $item);
 
