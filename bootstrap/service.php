@@ -1,29 +1,27 @@
 <?php
 
 return [
-    'memcache'           => function () {
+    'memcache' => function () {
         $config = \App\Config::get('memcache');
 
         return new \App\Memcache\Client($config['client']);
     },
-    'logger'             => function () {
-        // create a log channel
-
-        $loggerLevel = \App\Config::get('logger.level', \Monolog\Logger::WARNING);
-        // $loggerLevel = \App\Config::get('logger.path', \Monolog\Logger::WARNING);
-
-        $log = new \Monolog\Logger('name');
-        $log->pushHandler(new \Monolog\Handler\StreamHandler('path/to/your.log', $loggerLevel));
-        
-        // add records to the log
-        // $log->addWarning('Foo');
-        // $log->addError('Bar');
+    'logger'   => function () {
+        $config = \App\Config::get('logger');
+        $log = new \Monolog\Logger($config['name']);
+        $formatter = new \Monolog\Formatter\LineFormatter(
+            '%datetime% %channel% %level_name% : %message% %context% ' . PHP_EOL,
+            'Y-m-d H:i:s'
+        );
+        $stream = new \Monolog\Handler\StreamHandler($config['path'], $config['level']);
+        $stream->setFormatter($formatter);
+        $log->pushHandler($stream);
 
         return $log;
     },
-    'elastic'            => function () {
+    'elastic'  => function () {
         $config = \App\Config::get('elastic');
 
-        return new \App\Elastic\Client($config['client']);
+        return new \Lib\Elastic\Client($config['client']);
     },
 ];

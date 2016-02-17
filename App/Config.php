@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Lib\ArrayHelper;
+
 class Config
 {
     /**
@@ -16,7 +18,7 @@ class Config
      */
     public static function extend(array $array = [])
     {
-        static::$config = array_merge([], static::$config, (array) $array);
+        static::$config = array_merge([], static::$config, (array)$array);
     }
 
     /**
@@ -37,19 +39,13 @@ class Config
      *
      * @return null
      */
-    public static function get($key, $default = null)
+    public static function get($key = null, $default = null)
     {
-        return (self::exists($key))
-            ? self::$config[$key]
-            : $default;
-    }
+        if ($key === null) {
+            return self::$config;
+        }
 
-    /**
-     * @return mixed
-     */
-    public static function getAll()
-    {
-        return self::$config;
+        return ArrayHelper::getByPath(self::$config, $key, $default);
     }
 
     /**
@@ -60,7 +56,7 @@ class Config
      */
     public static function set($key, $value)
     {
-        return self::$config[$key] = $value;
+        return ArrayHelper::setByPath(self::$config, $key, $value);
     }
 
     /**
@@ -71,9 +67,7 @@ class Config
      */
     public static function add($key, $value)
     {
-        array_push($key, $value);
-
-        return $value;
+        return ArrayHelper::pushByPath(self::$config, $key, $value);
     }
 
     /**
@@ -83,7 +77,7 @@ class Config
      */
     public static function exists($key)
     {
-        return array_key_exists($key, self::$config);
+        return ArrayHelper::existsByPath(self::$config, $key);
     }
 
     //endregion *******************************************

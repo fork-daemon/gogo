@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+require realpath(__DIR__) . '/../bootstrap/bootstrap.php';
+
+$logger = \App\Service::logger();
+$logger->addWarning('text ...', ['test', 'cli']);
+$logger->addError('text ...', ['test', 'cli']);

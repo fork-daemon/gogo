@@ -100,7 +100,9 @@ class Service
     //endregion ***************************************************
 
     //region FastEnter ********************************************
-
+    /**
+     * @return \Monolog\Logger
+     */
     public static function logger()
     {
         return self::get(__FUNCTION__);

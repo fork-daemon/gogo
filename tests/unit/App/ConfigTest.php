@@ -10,6 +10,9 @@ class ConfigTest extends \Codeception\TestCase\Test
         \App\Config::extend([
             'aaa' => 'aaa',
             'bbb' => 'bbb',
+            'ccc' => [
+                'ddd' => 'eee'
+            ],
         ]);
     }
 
@@ -18,9 +21,18 @@ class ConfigTest extends \Codeception\TestCase\Test
         \App\Config::clear();
     }
 
+    public function testConfigGetter()
+    {
+        $aaa = \App\Config::get('aaa');
+        $this->assertEquals($aaa, 'aaa');
+
+        $eee = \App\Config::get('ccc.ddd');
+        $this->assertEquals($eee, 'eee');
+    }
+
     public function testConfigExistsGetterSetter()
     {
-        $key = 'test-key';
+        $key = 'test.key';
         $value = 'test-value';
 
         $isExists = \App\Config::exists($key);
@@ -31,25 +43,6 @@ class ConfigTest extends \Codeception\TestCase\Test
         $this->assertTrue($isExists);
 
         $testValue = \App\Config::get($key);
-        $this->assertEquals($value , $testValue);
+        $this->assertEquals($value, $testValue);
     }
-
-//    public function testMapGlobbals()
-//    {
-//        $globalKeys = [
-//            'language_id',
-//            'data_source_id',
-//            'language_table',
-//            'icecat_data_source_id',
-//            'data_sources_to_update_by_icecat',
-//        ];
-//
-//        foreach($globalKeys as $globalKey){
-//            $configValue = \App\Config::get($globalKey);
-//            $globalValue =$GLOBALS[$globalKey];
-//            $this->assertEquals($globalValue , $configValue , "global key is: {$globalKey}");
-//        }
-//    }
-
-
 }
