@@ -99,5 +99,12 @@ class Service
 
     //endregion ***************************************************
 
+    //region FastEnter ********************************************
 
+    public static function logger()
+    {
+        return self::get(__FUNCTION__);
+    }
+
+    //endregion ***************************************************
 }

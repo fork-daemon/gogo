@@ -7,12 +7,19 @@ return [
         return new \App\Memcache\Client($config['client']);
     },
     'logger'             => function () {
-        $config = \App\Config::get('logger');
+        // create a log channel
 
-        $obj = new \stdClass();
-        $obj->config = $config;
+        $loggerLevel = \App\Config::get('logger.level', \Monolog\Logger::WARNING);
+        // $loggerLevel = \App\Config::get('logger.path', \Monolog\Logger::WARNING);
 
-        return $obj;
+        $log = new \Monolog\Logger('name');
+        $log->pushHandler(new \Monolog\Handler\StreamHandler('path/to/your.log', $loggerLevel));
+        
+        // add records to the log
+        // $log->addWarning('Foo');
+        // $log->addError('Bar');
+
+        return $log;
     },
     'elastic'            => function () {
         $config = \App\Config::get('elastic');
