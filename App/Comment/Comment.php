@@ -16,16 +16,10 @@ class Comment implements CommentInterface
      * @var CommentableInterface
      */
     protected $item;
-    /**
-     * @var null|string
-     */
-    protected $text;
-    /**
-     * @var null|int
-     */
-    protected $timestamp;
 
-
+    /**
+     * model vars
+     */
     const P_COMMENT_ID = 'comment_id';
     const P_USER_ID = 'user_id';
     const P_ITEM_ID = 'item_id';
@@ -37,7 +31,18 @@ class Comment implements CommentInterface
      * @var array
      */
     protected $data = [];
-
+    /**
+     * @var array
+     */
+    protected $schema
+        = [
+            self::P_COMMENT_ID => true,
+            self::P_USER_ID    => true,
+            self::P_ITEM_ID    => true,
+            self::P_ITEM_TYPE  => true,
+            self::P_TEXT       => true,
+            self::P_TIMESTAMP  => true,
+        ];
 
     public function __construct($data = null)
     {
@@ -145,32 +150,76 @@ class Comment implements CommentInterface
      */
     public function save()
     {
-        $set = [
-            self::P_USER_ID    => $this->data[self::P_USER_ID],
-            self::P_ITEM_ID    => $this->data[self::P_ITEM_ID],
-            self::P_ITEM_TYPE  => $this->data[self::P_ITEM_TYPE],
-            self::P_TEXT       => $this->data[self::P_TEXT],
-            self::P_TIMESTAMP  => $this->data[self::P_TIMESTAMP],
-        ];
 
-        $new = empty($this->data[self::P_COMMENT_ID]);
-
-        if(!$new){
-            $set[self::P_COMMENT_ID] = $this->data[self::P_COMMENT_ID];
-        }
-
-        $logSet = print_r($set, true);
-        Service::logger()->addWarning("Comment save : {$logSet}");
+        $this->source(__FUNCTION__);
 
         return $this;
+//
+//        $set = [
+//            self::P_USER_ID    => $this->data[self::P_USER_ID],
+//            self::P_ITEM_ID    => $this->data[self::P_ITEM_ID],
+//            self::P_ITEM_TYPE  => $this->data[self::P_ITEM_TYPE],
+//            self::P_TEXT       => $this->data[self::P_TEXT],
+//            self::P_TIMESTAMP  => $this->data[self::P_TIMESTAMP],
+//        ];
+//
+//        $new = empty($this->data[self::P_COMMENT_ID]);
+//
+//        if(!$new){
+//            $set[self::P_COMMENT_ID] = $this->data[self::P_COMMENT_ID];
+//        }
+//
+//        $logSet = print_r($set, true);
+//        Service::logger()->addWarning("Comment save : {$logSet}");
+//
+//        return $this;
     }
 
     public function destroy()
     {
-        Service::logger()
-            ->addWarning("Comment destroy : user {$this->user->getId()} / item {$this->item->getId()}-{$this->item->getType()}");
+        $this->source(__FUNCTION__);
 
         return $this;
+    }
+
+    protected function source($action = null, $params = [])
+    {
+        $table = 'comment';
+
+        if ($action === 'destroy') {
+
+            if($this->data[self::P_COMMENT_ID]){
+                return Service::db()->delete($table, [
+                    self::P_COMMENT_ID => $this->data[self::P_COMMENT_ID]
+                ]);
+            }
+
+            return true;
+        }
+
+        if ($action === 'save') {
+
+            if ($this->data[self::P_COMMENT_ID]) {
+                $id = Service::db()->insert($table, $this->data);
+                $this->data[self::P_COMMENT_ID] = $id;
+                $result = ($id > 0);
+            } else {
+                $result = Service::db()->update($table, $this->data, [
+                    self::P_COMMENT_ID => $this->data[self::P_COMMENT_ID]
+                ]);
+            }
+            return $result;
+        }
+
+        if ($action === 'find') {
+            return Service::db()->fecth($table, $params);
+        }
+
+        if ($action === 'length') {
+            return Service::db()->length($table, $params);
+        }
+
+        return true;
     }
 
     /**
