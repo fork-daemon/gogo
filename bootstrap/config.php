@@ -15,4 +15,10 @@ return [
         'vhost' => '/',
         'debug' => false,
     ],
+    'db' => [
+        'dsn' => 'mysql:host=localhost;dbname=vesta',
+        'user' => 'user',
+        'password' => 'password',
+        'dbOptions' => [],
+    ],
 ];

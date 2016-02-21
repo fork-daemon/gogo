@@ -100,10 +100,19 @@ class Service
     //endregion ***************************************************
 
     //region FastEnter ********************************************
+
     /**
      * @return \Monolog\Logger
      */
     public static function logger()
+    {
+        return self::get(__FUNCTION__);
+    }
+
+    /**
+     * @return \Lib\Database\Client
+     */
+    public static function db()
     {
         return self::get(__FUNCTION__);
     }

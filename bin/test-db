@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+
+require realpath(__DIR__) . '/../bootstrap/bootstrap.php';
+
+$logger = \App\Service::logger();
+$db = \App\Service::db();
+
+
+
+//$result[] = $db->fetch('SELECT 5+10 as sum');
+//$result[] = $db->fetchOne('SELECT 5+10 as sum');
+
+//// array []
+//$result[] = $db->fetch('SELECT * FROM test_table WHERE id >= :id' , ['id' => 2]);
+//
+//// array
+//$result[] = $db->fetchOne('SELECT * FROM test_table WHERE id >= :id' , ['id' => 2]);
+//
+//// >>> array
+//$result[] = $db->fetch('SELECT * FROM test_table WHERE id >= :id' , ['id' => 2123]);
+//
+//// >>> null
+//$result[] = $db->fetchOne('SELECT * FROM test_table WHERE id >= :id' , ['id' => 2123]);
+//
+
+$result[] = $db->fetch('SHOW TABLE STATUS test_table');
+$result[] = $db->fetchOne('SHOW TABLE STATUS test_table');
+
+print_r($result);

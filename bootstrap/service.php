@@ -24,4 +24,9 @@ return [
 
         return new \Lib\Elastic\Client($config['client']);
     },
+    'db' => function () {
+        $config = \App\Config::get('db');
+
+        return new \Lib\Database\Client($config);
+    },
 ];
