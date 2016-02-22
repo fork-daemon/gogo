@@ -145,17 +145,12 @@ class Client
 
 
     // https://habrahabr.ru/post/137664/
-    // https://habrahabr.ru/post/137664/
-    // https://habrahabr.ru/post/137664/
-    // https://habrahabr.ru/post/137664/
-    // https://habrahabr.ru/post/137664/
 
-
-    protected function executeGood($query, $data = [])
+    protected function run($query, $data = [])
     {
         $pdo = $this->getPdo();
         $stm = $pdo->prepare($query);
-        $stm->setFetchMode(\PDO::FETCH_ASSOC);
+
         foreach ($data as $key => $value) {
             switch (true) {
                 case is_int($value):
@@ -178,16 +173,17 @@ class Client
     }
 
 
-    public function execute($query, $data = [])
+    public function command($query, $data = [])
     {
-        $stm = $this->executeGood($query, $data);
+        $stm = $this->run($query, $data);
 
-        return $stm;
+        return $stm->rowCount();
     }
 
     public function fetch($query, $data = [])
     {
-        $stm = $this->executeGood($query, $data);
+        $stm = $this->run($query, $data);
+        $stm->setFetchMode(\PDO::FETCH_ASSOC);
 
         return $stm->fetchAll();
     }
@@ -195,10 +191,57 @@ class Client
     public function fetchOne($query, $data = [])
     {
 
-        $stm = $this->executeGood($query, $data);
+        $stm = $this->run($query, $data);
+        $stm->setFetchMode(\PDO::FETCH_ASSOC);
 
         return $stm->fetch();
     }
 
 
+    protected function glue(&$data, $glue = " AND "){
+        $t = [];
+        foreach$data as $key => $value){
+            $contition = ' = ';
+            if(is_array($value)){
+                $contition = $value[0];
+                $value = $value[1];
+                $data[$key] = $value;
+            }
+
+            $t[] = "{$field} {$contition} :{$field}";
+        }
+
+        return implode($glue , $t);
+    }
+
+
+    public function insert($table, $data = [])
+    {
+        $replace['{table}'] = $table;
+        $replace['{set}'] = $this->glue($data , ', ');
+        $query = strtr("INSERT INTO {table} SET {set}" , $replace);
+
+        return $this->run($query , $data);
+    }
+
+    public function update($table, $data = [], $where = [])
+    {
+        $replace['{table}'] = $table;
+        $replace['{set}'] = $this->glue($data , ', ');
+        $replace['{where}'] = $this->glue($data , ' AND ');
+        $query = strtr("INSERT INTO {table} SET {set} WHERE {where}" , $replace);
+        
+        return $this->run($query , $data);
+    }
+
+    public function delete($table, $where = [])
+    {
+        $replace['{table}'] = $table;
+        $replace['{where}'] = $this->glue($data , ' AND ');
+        $query = strtr("DELETE FROM {table} WHERE {where}" , $replace);
+        
+        return $this->run($query , $data);
+    }
+
 }
+
